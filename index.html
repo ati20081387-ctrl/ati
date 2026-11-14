@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inside Atena's Mind</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500&family=Vazirmatn:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Starfield Canvas -->
+  <canvas id="starfield"></canvas>
+
+  <!-- Ambient Particles -->
+  <div id="particles"></div>
+
+  <!-- Landing Screen -->
+  <section id="landing" class="landing">
+    <div class="landing-content">
+      <div class="moon-container" id="moonTrigger" title="Enter">
+        <div class="moon">
+          <div class="moon-crater c1"></div>
+          <div class="moon-crater c2"></div>
+          <div class="moon-crater c3"></div>
+          <div class="moon-glow"></div>
+        </div>
+        <div class="moon-ring"></div>
+      </div>
+      <h1 class="title">ATENA</h1>
+      <p class="subtitle">An interactive archive of a mind.</p>
+      <p class="enter-hint">Click the moon to enter</p>
+    </div>
+    <div class="landing-fade"></div>
+  </section>
+
+  <!-- Main Universe -->
+  <main id="universe" class="universe hidden">
+    <!-- Fixed Music Player -->
+    <div id="musicPlayer" class="music-player">
+      <button id="playBtn" class="player-btn" aria-label="Play">
+        <svg viewBox="0 0 24 24" width="18" height="18"><path fill="currentColor" d="M8 5v14l11-7z"/></svg>
+      </button>
+      <button id="muteBtn" class="player-btn" aria-label="Mute">
+        <svg viewBox="0 0 24 24" width="16" height="16"><path fill="currentColor" d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>
+      </button>
+      <input type="range" id="volumeSlider" min="0" max="1" step="0.05" value="0.4" aria-label="Volume">
+      <span class="track-label">Ambient Night</span>
+      <audio id="ambientAudio" loop preload="none">
+        <!-- Place your ambient audio file here. Example: <source src="ambient.mp3" type="audio/mpeg"> -->
+        <!-- Suggested: soft piano + atmospheric pads, no vocals -->
+      </audio>
+    </div>
+
+    <!-- Header -->
+    <header class="universe-header">
+      <button id="backToLanding" class="back-btn" title="Return to entrance">◉</button>
+      <h2 class="universe-title">Inside Atena's Mind</h2>
+      <p class="universe-tagline">Nine worlds. One quiet universe.</p>
+    </header>
+
+    <!-- Worlds Hub -->
+    <section id="hub" class="hub">
+      <div class="hub-center">
+        <div class="central-orb">
+          <span>✦</span>
+        </div>
+      </div>
+      <div class="worlds-grid">
+        <button class="world-card" data-world="01" style="--i:0">
+          <span class="world-num">01</span>
+          <span class="world-name">Personality</span>
+          <span class="world-desc">The quiet architecture of thought</span>
+        </button>
+        <button class="world-card" data-world="02" style="--i:1">
+          <span class="world-num">02</span>
+          <span class="world-name">Love & Relationships</span>
+          <span class="world-desc">Trust, presence, understanding</span>
+        </button>
+        <button class="world-card" data-world="03" style="--i:2">
+          <span class="world-num">03</span>
+          <span class="world-name">Friendships</span>
+          <span class="world-desc">Shared silence and private jokes</span>
+        </button>
+        <button class="world-card" data-world="04" style="--i:3">
+          <span class="world-num">04</span>
+          <span class="world-name">Family</span>
+          <span class="world-desc">Roots, warmth, continuity</span>
+        </button>
+        <button class="world-card" data-world="05" style="--i:4">
+          <span class="world-num">05</span>
+          <span class="world-name">Interests</span>
+          <span class="world-desc">Code, history, the stars</span>
+        </button>
+        <button class="world-card" data-world="06" style="--i:5">
+          <span class="world-num">06</span>
+          <span class="world-name">Childhood</span>
+          <span class="world-desc">Snow, ballet, a worn CD</span>
+        </button>
+        <button class="world-card" data-world="07" style="--i:6">
+          <span class="world-num">07</span>
+          <span class="world-name">Aesthetic</span>
+          <span class="world-desc">Night, purple, chamomile</span>
+        </button>
+        <button class="world-card" data-world="08" style="--i:7">
+          <span class="world-num">08</span>
+          <span class="world-name">Dreams</span>
+          <span class="world-desc">Paths still forming</span>
+        </button>
+        <button class="world-card" data-world="09" style="--i:8">
+          <span class="world-num">09</span>
+          <span class="world-name">Little Details</span>
+          <span class="world-desc">Tea, rain, quiet rooms</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- World Panels (overlays) -->
+    <div id="worldPanels">
+
+      <!-- WORLD 01 — PERSONALITY -->
+      <section class="world-panel" id="panel-01" data-world="01">
+        <button class="close-panel" aria-label="Close">×</button>
+        <div class="panel-inner">
+          <header class="panel-header">
+            <span class="panel-num">World 01</span>
+            <h2>Personality</h2>
+            <p class="panel-sub">The quiet architecture of an INTP mind</p>
+          </header>
+          <div class="panel-content">
+            <div class="personality-grid">
+              <article class="trait-card">
+                <h3>INTP</h3>
+                <p>A mind that maps systems before it speaks. Curiosity as gravity. Questions as the native language.</p>
+              </article>
+              <article class="trait-card">
+                <h3>Introversion</h3>
+                <p>Energy returns in solitude. Crowds drain; quiet rooms restore. Presence is selective, never performative.</p>
+              </article>
+              <article class="trait-card">
+                <h3>Analytical</h3>
+                <p>Layers peeled carefully. Patterns noticed. Logic as a gentle filter rather than a weapon.</p>
+              </article>
+              <article class="trait-card">
+                <h3>Quiet Energy</h3>
+                <p>Calm surface. Internal weather systems. Chaos held with care inside precise frames.</p>
+              </article>
+              <article class="trait-card deep">
+                <h3>Emotional Depth</h3>
+                <p>Feelings run deep, rarely announced. Understanding is preferred over explanation. Safety before disclosure.</p>
+              </article>
+              <article class="trait-card">
+                <h3>Solitude</h3>
+                <p>Not loneliness. A chosen space where thoughts can stretch without interruption.</p>
+              </article>
+              <article class="trait-card">
+                <h3>Independence</h3>
+                <p>Freedom to think, decide, and exist without constant translation of the inner world.</p>
+              </article>
+              <article class="trait-card contradiction">
+                <h3>The Contradiction</h3>
+                <p>Logical and quiet. Emotionally deep yet reserved. External stillness that does not equal emptiness.</p>
+              </article>
+            </div>
+            <div class="note-block">
+              <p>She prefers being understood without having to explain every little thing.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- WORLD 02 — LOVE & RELATIONSHIPS -->
+      <section class="world-panel" id="panel-02" data-world="02">
+        <button class="close-panel" aria-label="Close">×</button>
+        <div class="panel-inner">
+          <header class="panel-header">
+            <span class="panel-num">World 02</span>
+            <h2>Love & Relationships</h2>
+            <p class="panel-sub">A private space for connection</p>
+          </header>
+          <div class="panel-content">
+            <div class="love-pillars">
+              <div class="pillar">
+                <span class="pillar-icon">◎</span>
+                <h4>Emotional Connection</h4>
+                <p>Depth over performance. Presence that feels real.</p>
+              </div>
+              <div class="pillar">
+                <span class="pillar-icon">◈</span>
+                <h4>Trust & Safety</h4>
+                <p>Emotional security as foundation. Honesty without games.</p>
+              </div>
+              <div class="pillar">
+                <span class="pillar-icon">◇</span>
+                <h4>Being Understood</h4>
+                <p>The quiet relief of not having to translate every thought.</p>
+              </div>
+              <div class="pillar">
+                <span class="pillar-icon">○</span>
+                <h4>Quality Time</h4>
+                <p>Attention that is chosen, not residual. Shared silence that is comfortable.</p>
+              </div>
+              <div class="pillar">
+                <span class="pillar-icon">✦</span>
+                <h4>Boundaries</h4>
+                <p>Mutual respect. Space that protects both people.</p>
+              </div>
+              <div class="pillar">
+                <span class="pillar-icon">☾</span>
+                <h4>Affection</h4>
+                <p>Small consistent signals that say “you are seen.”</p>
+              </div>
+            </div>
+
+            <div class="archive-section">
+              <h3>Memory Archive</h3>
+              <p class="hint">A private place for meaningful moments. Add names, dates, notes, and photographs here.</p>
+              <div class="memory-grid" id="loveMemories">
+                <!-- Template for new memories — duplicate and fill -->
+                <div class="memory-card empty">
+                  <div class="memory-placeholder">
+                    <span>+</span>
+                    <p>Add a memory</p>
+                  </div>
+                </div>
+                <!-- Example structure (hidden by default or use as guide):
+                <div class="memory-card">
+                  <div class="memory-date">YYYY · Month</div>
+                  <h4>Title of the moment</h4>
+                  <p>Short note about why it matters.</p>
+                </div>
+                -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- WORLD 03 — FRIENDSHIPS -->
+      <section class="world-panel" id="panel-03" data-world="03">
+        <button class="close-panel" aria-label="Close">×</button>
+        <div class="panel-inner">
+          <header class="panel-header">
+            <span class="panel-num">World 03</span>
+            <h2>Friendships</h2>
+            <p class="panel-sub">Shared silence, private jokes, real presence</p>
+          </header>
+          <div class="panel-content">
+            <p class="intro-text">Friendships live in the small things: the conversation that continued past midnight, the joke that still works years later, the person who understood without needing the full explanation.</p>
+            <div class="friend-profiles" id="friendProfiles">
+              <div class="friend-card empty">
+                <div class="friend-placeholder">
+                  <span>+</span>
+                  <p>Add a friend profile</p>
+                  <small>Name · shared memories · notes · photos</small>
+                </div>
+              </div>
+              <!-- 
+              Structure for a friend:
+              <div class="friend-card">
+                <div class="friend-avatar">initial or photo</div>
+                <h4>Name</h4>
+                <p class="friend-note">A short note about the connection.</p>
+                <ul class="friend-memories">
+                  <li>Memory or private joke</li>
+                </ul>
+              </div>
+              -->
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- WORLD 04 — FAMILY -->
+      <section class="world-panel" id="panel-04" data-world="04">
+        <button class="close-panel" aria-label="Close">×</button>
+        <div class="panel-inner">
+          <header class="panel-header">
+            <span class="panel-num">World 04</span>
+            <h2>Family</h2>
+            <p class="panel-sub">The people who form the first language of home</p>
+          </header>
+          <div class="panel-content">
+            <div class="family-tree">
+              <div class="family-member mother">
+                <div class="member-portrait">
+                  <span class="member-initial">م</span>
+                </div>
+                <div class="member-info">
+                  <h3>Mahdieh <span class="role">Mother</span></h3>
+                  <p class="born">Born 1362</p>
+                  <ul class="member-details">
+                    <li>General physician</li>
+                    <li>Interested in medical science and continuous learning</li>
+                    <li>Enjoys discovering new subjects and learning languages</li>
+                    <li>Calm, responsible, thoughtful, family-oriented</li>
+                    <li>Loves flowers, plants, and a warm home</li>
+                    <li>Drawn to pink and lilac</li>
+                    <li>Values attention, understanding, and recognition of her efforts</li>
+                  </ul>
+                </div>
+              </div>
+
+              <div class="family-member father">
+                <div class="member-portrait">
+                  <span class="member-initial">س</span>
+                </div>
+                <div class="member-info">
+                  <h3>Saeed <span class="role">Father</span></h3>
+                  <p class="born">Born 1358</p>
+                  <p class="member-note">An important part of Atena’s family world.</p>
+                  <!-- Add more personal details here when ready -->
+                </div>
+              </div>
+
+              <div class="family-member sister">
+                <div class="member-portrait">
+                  <span class="member-initial">د</span>
+                </div>
+                <div class="member-info">
+                  <h3>Dorsa <span class="role">Younger Sister</span></h3>
+                  <p class="born">Born 1394</p>
+                  <!-- Add memories, notes, and photos here -->
+                </div>
+              </div>
+            </div>
+
+            <div class="family-memories">
+              <h3>Family Memories</h3>
+              <div class="memory-grid" id="familyMemories">
+                <div class="memory-card empty">
+                  <div class="memory-placeholder">
+                    <span>+</span>
+                    <p>Add a family memory</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- WORLD 05 — INTERESTS -->
+      <section class="world-panel" id="panel-05" data-world="05">
+        <button class="close-panel" aria-label="Close">×</button>
+        <div class="panel-inner">
+          <header class="panel-header">
+            <span class="panel-num">World 05</span>
+            <h2>Interests & Passions</h2>
+            <p class="panel-sub">The subjects that pull her attention</p>
+          </header>
+          <div class="panel-content">
+            <div class="interest-blocks">
+              <article class="interest-block code">
+                <h3>Programming</h3>
+                <div class="tags">
+                  <span>HTML</span><span>CSS</span><span>JavaScript</span>
+                  <span>Python</span><span>Django</span><span>Web Development</span>
+                </div>
+                <p>Learning through practical projects. Building systems, understanding how interfaces breathe, turning ideas into working structures.</p>
+              </article>
+
+              <article class="interest-block tech">
+                <h3>Technology</h3>
+                <p>Computers as tools and companions. Software environments. Digital creativity that feels both precise and open-ended.</p>
+              </article>
+
+              <article class="interest-block history">
+                <h3>History</h3>
+                <p>Ancient civilizations. Iranian history. Clothing, architecture, religions, and the stories that people carried across centuries. The texture of the past.</p>
+              </article>
+
+              <article class="interest-block other">
+                <h3>Further Currents</h3>
+                <ul>
+                  <li>Psychology and personality systems</li>
+                  <li>Learning for its own sake</li>
+                  <li>Creative design and visual thinking</li>
+                  <li>Astronomy and celestial aesthetics</li>
+                </ul>
+              </article>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- WORLD 06 — CHILDHOOD -->
+      <section class="world-panel" id="panel-06" data-world="06">
+        <button class="close-panel" aria-label="Close">×</button>
+        <div class="panel-inner childhood-panel">
+          <header class="panel-header">
+            <span class="panel-num">World 06</span>
+            <h2>Childhood Memories</h2>
+            <p class="panel-sub">Snow, ballet, and a CD that finally stopped</p>
+          </header>
+          <div class="panel-content">
+            <div class="barbie-memory" id="barbieScene">
+              <div class="snow-layer" id="snowLayer"></div>
+              <div class="ballet-hall">
+                <div class="hall-window"></div>
+                <div class="ballet-figure large"></div>
+                <div class="ballet-figure small"></div>
+                <div class="memory-caption">
+                  <h3>The Snowy Ballet</h3>
+                  <p>A favorite childhood Barbie movie. It opens in snow. Inside, a wide rehearsal hall. A tall Barbie practices ballet beside a little girl. Magical winter light. Atena watched it until the disc wore out.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="more-memories">
+              <h3>Other Childhood Fragments</h3>
+              <p class="hint">Photos, cartoons, small moments. Add them here.</p>
+              <div class="memory-grid" id="childhoodMemories">
+                <div class="memory-card empty">
+                  <div class="memory-placeholder">
+                    <span>+</span>
+                    <p>Add a memory</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- WORLD 07 — AESTHETIC -->
+      <section class="world-panel" id="panel-07" data-world="07">
+        <button class="close-panel" aria-label="Close">×</button>
+        <div class="panel-inner">
+          <header class="panel-header">
+            <span class="panel-num">World 07</span>
+            <h2>Aesthetic Universe</h2>
+            <p class="panel-sub">The visual language she returns to</p>
+          </header>
+          <div class="panel-content">
+            <div class="aesthetic-gallery">
+              <div class="aes-item" data-theme="dark-feminine">Dark feminine</div>
+              <div class="aes-item" data-theme="purple-blue">Purple & deep blue</div>
+              <div class="aes-item" data-theme="black-cat">Black cats · green eyes</div>
+              <div class="aes-item" data-theme="chamomile">Chamomile</div>
+              <div class="aes-item" data-theme="autumn">Autumn</div>
+              <div class="aes-item" data-theme="rain">Rainy windows</div>
+              <div class="aes-item" data-theme="ocean">Ocean at sunset</div>
+              <div class="aes-item" data-theme="night">Night skies</div>
+              <div class="aes-item" data-theme="predawn">Pre-dawn quiet</div>
+              <div class="aes-item" data-theme="celestial">Celestial objects</div>
+              <div class="aes-item" data-theme="vintage">Vintage details</div>
+              <div class="aes-item" data-theme="desk-light">Warm desk light</div>
+            </div>
+
+            <div class="workspace-vision">
+              <h3>Ideal Workspace</h3>
+              <div class="workspace-scene">
+                <div class="desk">
+                  <div class="laptop"><span class="code-line"></span><span class="code-line"></span><span class="code-line short"></span></div>
+                  <div class="books"></div>
+                  <div class="flowers">✿</div>
+                  <div class="lamp"></div>
+                </div>
+                <div class="window-night">
+                  <div class="window-stars"></div>
+                </div>
+              </div>
+              <p>A programmer’s desk. Laptop open to code. A few programming books. Chamomile. Black and purple details. Soft warm light. A large window facing the night sky.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- WORLD 08 — DREAMS -->
+      <section class="world-panel" id="panel-08" data-world="08">
+        <button class="close-panel" aria-label="Close">×</button>
+        <div class="panel-inner">
+          <header class="panel-header">
+            <span class="panel-num">World 08</span>
+            <h2>Dreams & Future</h2>
+            <p class="panel-sub">Paths that are still being drawn</p>
+          </header>
+          <div class="panel-content">
+            <div class="dream-themes">
+              <div class="dream-card">
+                <h4>University</h4>
+                <p>Computer science. Building real skills. Exploring strong educational environments. Shiraz holds particular interest; other cities and universities remain open possibilities.</p>
+              </div>
+              <div class="dream-card">
+                <h4>Craft</h4>
+                <p>Programming as a professional language. Independence through competence. Projects that solve real problems.</p>
+              </div>
+              <div class="dream-card">
+                <h4>Growth</h4>
+                <p>Personal development that feels self-directed. Travel and experiences that expand the map without forcing a single destination.</p>
+              </div>
+            </div>
+
+            <div class="timeline-section">
+              <h3>Timeline</h3>
+              <p class="hint">Add goals, milestones, and future plans. Nothing is fixed.</p>
+              <div class="timeline" id="futureTimeline">
+                <div class="timeline-item">
+                  <div class="tl-dot"></div>
+                  <div class="tl-content">
+                    <span class="tl-label">Now</span>
+                    <p>Learning, observing, collecting the pieces.</p>
+                  </div>
+                </div>
+                <div class="timeline-item empty">
+                  <div class="tl-dot"></div>
+                  <div class="tl-content">
+                    <span class="tl-label">+</span>
+                    <p>Add a milestone</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- WORLD 09 — LITTLE DETAILS -->
+      <section class="world-panel" id="panel-09" data-world="09">
+        <button class="close-panel" aria-label="Close">×</button>
+        <div class="panel-inner">
+          <header class="panel-header">
+            <span class="panel-num">World 09</span>
+            <h2>The Little Details</h2>
+            <p class="panel-sub">The quiet signatures of a person</p>
+          </header>
+          <div class="panel-content">
+            <div class="details-grid">
+              <div class="detail-group">
+                <h3>Favorite Things</h3>
+                <ul class="detail-list">
+                  <li>Tea</li>
+                  <li>Sour foods & pickles</li>
+                  <li>Rain</li>
+                  <li>Autumn</li>
+                  <li>Nighttime</li>
+                  <li>Chamomile</li>
+                  <li>The ocean</li>
+                  <li>Sad cinematic music</li>
+                  <li>Quiet spaces</li>
+                  <li>Her own room</li>
+                </ul>
+              </div>
+
+              <div class="detail-group">
+                <h3>Music</h3>
+                <p>Dark, atmospheric, slightly melancholic. The feeling of driving at night with headphones.</p>
+                <div class="music-artists">
+                  <span>Dariush</span>
+                  <span>Ebi</span>
+                  <span>Googoosh</span>
+                  <span>Hayedeh</span>
+                  <span>Kourosh</span>
+                  <span>Saren</span>
+                  <span>Arta</span>
+                  <span>Naji</span>
+                </div>
+              </div>
+
+              <div class="detail-group">
+                <h3>Films</h3>
+                <p>Realistic Iranian social dramas. Family stories. Dark humor and satire that observe rather than shout.</p>
+              </div>
+            </div>
+
+            <div class="hidden-notes">
+              <h3>Hidden Notes</h3>
+              <p class="hint">Small private observations and visual surprises can live here.</p>
+              <div class="notes-area" id="personalNotes">
+                <!-- Add private notes or easter eggs -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
